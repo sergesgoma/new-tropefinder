@@ -267,7 +267,7 @@
     <h3 class="recs-title center">In the same vein</h3>
     <div id="carousel">
       <div id="content">
-        <% for (let i=0; i < 25; i++) {%>    
+        <% for (let i=0; i < recs.length; i++) {%>    
           <% if (book.title !== recs[i].title) {%>    
           <a href="/book/<%=recs[i].book_id%>/<%= recs[i].title %>">          
           <img class="item" src="<%= recs[i].img %>" />

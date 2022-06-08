@@ -26,7 +26,7 @@ const bookController = {
     const sessionAuth = req.session.isAuth;
 
     const books = await prisma.books.findMany({
-      where: { AND: [{ book_id: book_id }, { title: title }] },
+      where: { book_id: book_id, title: title },
     });
     const bookGenre = await prisma.books.findMany({
       where: { book_id: book_id },
@@ -37,10 +37,8 @@ const bookController = {
     });
     const genre = bookGenre[0].genres;
     const oneTag = bookGenre[0].tag;
-    const size = 6;
-    const items = genre.slice(0, size);
+    const items = genre.splice(1, 3);
 
-    const skip = Math.floor(Math.random() * 5);
     const recs = await prisma.books.findMany({
       where: {
         genres: {
@@ -51,9 +49,10 @@ const bookController = {
         },
       },
       take: 25,
-      skip: skip,
     });
-
+    recs.sort(function (a, b) {
+      return 0.5 - Math.random();
+    });
     try {
       res.render("bookPage", {
         books,
