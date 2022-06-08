@@ -1,0 +1,381 @@
+<%- include('../partials/header')%>
+<% for (let book of books) {%>
+<section class="book-background">
+  <div class="book-separator book-separator-mobile">
+    <section class="section-img">
+      <img
+        src="<%= book.img %>"
+        alt="<%= book.title %>"
+        class="book-img thumbnail-slow"
+      />
+    </section>
+    <section class="section-title">
+      <h3 class="book-title-big"><%= book.title %></h3>
+      <h3 class="author-name-block">
+        By<span class="author-name">
+          <a href="/author/<%= book.author %>"><%= book.author %></a></span
+        >
+      </h3>
+      <!-- BUY NOW BUTTON -->
+      <div class="book-btn-row">
+        <div class="dropdown">
+          <button
+            onclick="dropdown()"
+            class="dropdown-button dropdown-buy"
+            id="dropdown-button"
+          >
+            <span class="buy-now">Buy now </span
+            ><i class="fa-solid fa-angle-down"></i>
+          </button>
+          <div class="dropdown-child dropdown-child-buy" id="dropdown-child">
+            <p>INTERNATIONAL</p>
+            <a
+              class="buy-now"
+              href="https://www.amazon.com/s?k=<%= title%> by <%=book.author%>"
+              target="_blank"
+              rel="noopener noreferrer"
+              >Amazon</a
+            >
+            <p>USA</p>
+            <a
+              class="buy-now"
+              href="https://www.barnesandnoble.com/s/<%= title%> by <%=book.author%>"
+              target="_blank"
+              rel="noopener noreferrer"
+              >Barnes & Noble</a
+            >
+            <p>FRANCE</p>
+            <a
+              class="buy-now"
+              href="https://www.cultura.com/search/results?search_query=<%= title%> by <%=book.author%>"
+              target="_blank"
+              rel="noopener noreferrer"
+              >Cultura</a
+            >
+            <a
+              class="buy-now"
+              href="https://www.fnac.com/SearchResult/ResultList.aspx?SCat=0&Search=<%= title%> by <%=book.author%>"
+              target="_blank"
+              rel="noopener noreferrer"
+              >Fnac</a
+            >
+          </div>
+        </div>
+        <!-- /BUY NOW BUTTON -->
+        <!-- WISHLIST BUTTON -->
+        <div class="wishlist">
+          <a href="#">Wishlist <span class="heart">&hearts;</span></a>
+        </div>
+        <!-- /WISHLIST BUTTON -->
+      </div>
+    </section>
+  </div>
+</section>
+<!-- Book Details -->
+<section class="book-details">
+  <div class="book-details-section">
+    <div class="tabs">
+      <div class="tab">
+        <input type="radio" name="tabgroup" id="tab-1" checked />
+        <label for="tab-1">Synopsis</label>
+        <div class="tab__content">
+          <div class="tab__summary"><%= book.summary %></div>
+        </div>
+      </div>
+      <div class="tab">
+        <input type="radio" name="tabgroup" id="tab-2" />
+        <label for="tab-2">Details</label>
+        <div class="tab__content">
+          <table>
+            <tbody>
+              <tr>
+                <td class="bold">Genres:</td>
+                <td class="book-genre">
+                  <% for (let i=0; i< book.genres.length; i++) {%>
+                  <a href="/genre/<%= book.genres[i] %>" 
+                    ><%= book.genres[i] %></a>
+                  <% } %>
+                </td>
+              </tr>
+              <% if (book.series) { %>
+              <tr>
+                <td class="bold">Series:</td>
+                <td><a href="/series/<%= book.seriesName %>"><%= book.seriesName %> #<%= book.numSeries %></a></td>
+              </tr>
+              <% } %>
+              <tr>
+                <td class="bold">First Published:</td>
+                <td><%= book.firstPublished %></td>
+              </tr>
+              <!-- <tr>
+                <td class="bold">Publisher:</td>
+                <td><a href="/publisher/<%= book.publisher %>"><%= book.publisher %></a></td>
+              </tr> -->
+              <tr>
+                <td class="bold">Format:</td>
+                <td><%= book.format%></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="tab">
+        <input type="radio" name="tabgroup" id="tab-3" />
+        <label for="tab-3"
+          >Reviews
+          <span class="star-review rating small-rating rating-left">
+            <% if (book.avgStars === 5) {%>
+            <span class="icon checked">★</span>
+            <span class="icon checked">★</span>
+            <span class="icon checked">★</span>
+            <span class="icon checked">★</span>
+            <span class="icon checked">★</span>
+            <% } %> <% if (book.avgStars < 5 && book.avgStars >= 4) {%>
+            <span class="icon checked">★</span>
+            <span class="icon checked">★</span>
+            <span class="icon checked">★</span>
+            <span class="icon checked">★</span>
+            <span class="icon">★</span>
+            <% } %> <% if (book.avgStars < 4 && book.avgStars >= 3) {%>
+            <span class="icon checked">★</span>
+            <span class="icon checked">★</span>
+            <span class="icon checked">★</span>
+            <span class="icon">★</span>
+            <span class="icon">★</span>
+            <% } %> <% if (book.avgStars < 3 && book.avgStars >= 2) {%>
+            <span class="icon checked">★</span>
+            <span class="icon checked">★</span>
+            <span class="icon">★</span>
+            <span class="icon">★</span>
+            <span class="icon">★</span>
+            <% } %> <% if (book.avgStars < 2 && book.avgStars >= 1) {%>
+            <span class="icon checked">★</span>
+            <span class="icon">★</span>
+            <span class="icon">★</span>
+            <span class="icon">★</span>
+            <span class="icon">★</span>
+            <% } %> <% if (book.avgStars === 0 || book.avgStars == undefined )
+            {%>
+            <span class="icon">★</span>
+            <span class="icon">★</span>
+            <span class="icon">★</span>
+            <span class="icon">★</span>
+            <span class="icon">★</span>
+            <% } %>
+          </span>
+        </label>
+        <div class="tab__content">
+          <div class="review-wrapper">
+            <% if (!sessionAuth) {%>
+            <p class="p-review">
+              Only TropeFinder members can share their reviews.
+            </p>
+            <% } %> <% if (sessionAuth) {%>
+            <p class="p-review">
+              Discover the reviews of fellow TropeFinder members.
+            </p>
+            <% } %>
+            <div class="review-list">
+              
+              <p class="p-16 bt-grey">No reviews yet.</p>
+              <% if (book.review !== undefined) {%> <% for (let
+              i=0; i < book.review.length; i++) { %>
+              <div class="one-review">
+                <div class="block-username-rating">
+                  <h3 class="username"><%= book.username[i] %></h3>
+                  <div class="rating small-rating">
+                    <% if (book.stars[i] === 5) {%>
+                    <span class="icon checked">★</span>
+                    <span class="icon checked">★</span>
+                    <span class="icon checked">★</span>
+                    <span class="icon checked">★</span>
+                    <span class="icon checked">★</span>
+                    <% } %> <% if (book.stars[i] === 4) {%>
+                    <span class="icon checked">★</span>
+                    <span class="icon checked">★</span>
+                    <span class="icon checked">★</span>
+                    <span class="icon checked">★</span>
+                    <span class="icon">★</span>
+                    <% } %> <% if (book.stars[i] === 3) {%>
+                    <span class="icon checked">★</span>
+                    <span class="icon checked">★</span>
+                    <span class="icon checked">★</span>
+                    <span class="icon">★</span>
+                    <span class="icon">★</span>
+                    <% } %> <% if (book.stars[i] === 2) {%>
+                    <span class="icon checked">★</span>
+                    <span class="icon checked">★</span>
+                    <span class="icon">★</span>
+                    <span class="icon">★</span>
+                    <span class="icon">★</span>
+                    <% } %> <% if (book.stars[i] === 1) {%>
+                    <span class="icon checked">★</span>
+                    <span class="icon">★</span>
+                    <span class="icon">★</span>
+                    <span class="icon">★</span>
+                    <span class="icon">★</span>
+                    <% } %> <% if (book.stars[i] === 0) {%>
+                    <span class="icon">★</span>
+                    <span class="icon">★</span>
+                    <span class="icon">★</span>
+                    <span class="icon">★</span>
+                    <span class="icon">★</span>
+                    <% } %>
+                  </div>
+                </div>
+                <p class="review-text"><%= book.review[i] %></p>
+                <% for(const book of books) {%> <% if (sessionAuth &&
+                book.username[i] == username) { %>
+
+                <div class="review-bottom">
+                  <span class="pen"
+                    ><a
+                      href="/book/<%=book.title%>/<%= book.reviewId[i] %>/edit-review"
+                      ><i class="fa-solid fa-pen"></i></a
+                  ></span>
+                  <span class="dustbin"
+                    ><a
+                      href="/book/<%=book.title%>/<%=book.reviewId[i] %>/delete-review"
+                      ><i class="fa-solid fa-trash-can"></i></a
+                  ></span>
+                </div>
+                <% } %> <% }%>
+              </div>
+              <% }%> <% }%>
+              <!-- /one review -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Corner Tags -->
+    <div class="corner">
+      <h4>Tags</h4>
+      <div class="corner-tag">
+        <% book.tag.sort(); for(let i=0; i < book.tag.length; i++) {%>
+        <a href="/tags/<%= book.tag[i] %>"><%= book.tag[i] %></a>
+        <% } %>
+      </div>
+    </div>
+    <!-- /Corner Tags -->
+  </div>
+</section>
+<!-- /Book Details -->
+<!-- Caroussel Recs -->
+<section class="recs">
+  <div id="wrapper">
+    <h3 class="recs-title center">In the same vein</h3>
+    <div id="carousel">
+      <div id="content">
+        <% for (let i=0; i < 25; i++) {%>    
+          <% if (book.title !== recs[i].title) {%>    
+          <a href="/book/<%=recs[i].book_id%>/<%= recs[i].title %>">          
+          <img class="item" src="<%= recs[i].img %>" />
+        </a>
+        <% } %>
+        <% } %>
+      </div>
+    </div>
+    <button id="prev">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="24"
+        height="24"
+        viewBox="0 0 24 24"
+      >
+        <path fill="none" d="M0 0h24v24H0V0z" />
+        <path d="M15.61 7.41L14.2 6l-6 6 6 6 1.41-1.41L11.03 12l4.58-4.59z" />
+      </svg>
+    </button>
+    <button id="next">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="24"
+        height="24"
+        viewBox="0 0 24 24"
+      >
+        <path fill="none" d="M0 0h24v24H0V0z" />
+        <path d="M10.02 6L8.61 7.41 13.19 12l-4.58 4.59L10.02 18l6-6-6-6z" />
+      </svg>
+    </button>
+  </div>
+</section>
+<!-- /Caroussel Recs -->
+<% } %>
+<script>
+    // header animation
+  const header = document.querySelector(".header");
+  window.onscroll = () => {
+    if (window.scrollY > 50) {
+      header.classList.add("header-active");
+    } else {
+      header.classList.remove("header-active");
+    }
+  };
+
+  // dropdown menu animation
+  $(document).ready(function () {
+    $(".dropdown").click(function () {
+      $(this).find(".dropdown-child").slideToggle("fast");
+    });
+  });
+  $(document).on("click", function (event) {
+    var $trigger = $(".dropdown");
+    if ($trigger !== event.target && !$trigger.has(event.target).length) {
+      $(".dropdown-child").slideUp("fast");
+    }
+  });
+
+
+  // scroll full page animation
+ $(document).ready(function () {
+    $("button").click(function () {
+      $(".content").slideUp(500).delay(5000).slideDown(500);
+    });
+  });
+
+  // Tabs animation in the book page
+  (function ($, document) {
+    // get tallest tab__content element
+    let height = -1;
+
+    $(".tab__content").each(function () {
+      height = height > $(this).outerHeight() ? height : $(this).outerHeight();
+      $(this).css("position", "absolute");
+    });
+
+    // set height of tabs + top offset
+    $("[data-tabs]").css("min-height", height + 40 + "px");
+  })(jQuery, document);
+
+  // Caroussel animation in the book page
+  const gap = 16;
+
+  const carousel = document.getElementById("carousel"),
+    content = document.getElementById("content"),
+    next = document.getElementById("next"),
+    prev = document.getElementById("prev");
+
+  next.addEventListener("click", (e) => {
+    carousel.scrollBy(width + gap, 0);
+    if (carousel.scrollWidth !== 0) {
+      prev.style.display = "flex";
+    }
+    if (content.scrollWidth - width - gap <= carousel.scrollLeft + width) {
+      next.style.display = "none";
+    }
+  });
+  prev.addEventListener("click", (e) => {
+    carousel.scrollBy(-(width + gap), 0);
+    if (carousel.scrollLeft - width - gap <= 0) {
+      prev.style.display = "none";
+    }
+    if (!content.scrollWidth - width - gap <= carousel.scrollLeft + width) {
+      next.style.display = "flex";
+    }
+  });
+
+  let width = carousel.offsetWidth;
+  window.addEventListener("resize", (e) => (width = carousel.offsetWidth));
+</script>
+<%- include ('../partials/footer') %>

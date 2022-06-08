@@ -1,0 +1,48 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model books {
+  id                Int @id @default(autoincrement())
+  book_id           Int @unique
+  title             String?
+  author            String?
+  img               String?
+  gdRating          Decimal? @db.Decimal(3, 2)
+  series            String?
+  seriesName        String?
+  numSeries         String?
+  numGdRating       Int?
+  numGdReview       String?
+  format            String?
+  firstPublished    String?
+  yearOfPublication String?
+  language          String?
+  awards            String[]
+  tag               String[]
+  genres            String[]
+  summary           String?
+
+}
+
+model user {
+  user_id Int     @id @default(autoincrement())
+  username    String @unique
+  email   String  @unique
+  password String?
+  isAdmin Boolean @default(false)
+}
+
+model reviews {
+  review_id Int     @id @default(autoincrement())
+  username    String @unique
+  review   String?
+  title String?
+  stars Int?
+  updated Boolean?
+}

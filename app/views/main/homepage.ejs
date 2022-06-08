@@ -1,0 +1,103 @@
+<%- include('../partials/header')%>
+      <main>
+        <form action="/tag" method="get">
+        <div class="wrapper">
+          <div class="main-div">
+          <h2 class="big-title">Trope<span class="blue">Finder</span>, <br><span class="italic medium-font">the trope way to find a book</span></h2>
+          <div class="slider">
+            <div class="slider-text1">evil clown</div>
+            <div class="slider-text2">enemies to lovers</div>
+            <div class="slider-text3">the chosen one</div>
+            <div class="slider-text4">unreliable narrator</div>
+          </div>
+          
+          <div class="search-bar">
+            <input type="search" class="search" name="search" id="search" placeholder="search by trope, genre, title or author" />
+            <button type="submit" class="button-search">
+              <i class="fa-solid fa-magnifying-glass"></i>
+            </button>
+          </div>
+          
+          </div>
+        </div>
+      </form>
+      </main>
+      <img src="/img/undraw_reading_time_re_phf7.svg" alt="background-img" class="bg-mobile">
+
+    <section id="how" class="how hide">
+      <div class="wrapper how-wrapper">
+        <h2 class="medium-title bb-2">How it works</h2>
+        <p class="how-text">
+        Merriam-Webster gives a <a href="https://www.merriam-webster.com/dictionary/trope" target="_blank" rel="noopener noreferrer">definition</a>  of "trope" as a "common or overused theme or device". In fiction, a trope is a concept that <span class="bold">the audience will recognize and understand instantly.</span> 
+        </p><p class="how-text">It can be a plot trick, a setup, a character trait, <span class="bold blue">you know it when you see it.</span> 
+        </p><p class="how-text">Think: <span class="italic">"everyone has a secret"</span> in thrillers, <span class="italic">"the evil overlord"</span> in fantasy works, <span class="italic">"love triangle"</span> in romance. 
+        </p><p class="how-text">All fictional stories in books, movies, TV series are <span class="bold">full of tropes!</span> 
+        </p><p class="how-text">This website helps you find your next <span class="bold blue">book crush</span> through a trope you love (or love to hate)!  
+        </p>
+      </div>
+    </section>
+    <section id="random" class="latest hide">
+      <div class="wrapper">
+        <h2 class="medium-title">Random Tropes</h2>
+          <!-- One Trope Block -->
+           <% for (const book of books) {%>
+            <% const arrRandom = Math.floor(Math.random() * book.tag.length); %>
+          <p class="trope-description">
+            <span class="trope-name"><a href="/tags/<%=book.tag[arrRandom]%>"><%= book.tag[arrRandom]%>.</a></span></p>
+          <div class="random-container"> 
+            <!-- one book -->
+            <div class="random-book" id="book">
+            <a href="/book/<%=book.book_id%>/<%=book.title%>"><img
+                src="<%= book.img %>"
+                class="latest-img thumbnail"
+                alt="<%= book.title%>"
+              /></a>
+            <div class="random-block">
+              <h3 class="book-title"><a href="/book/<%=book.book_id%>/<%=book.title%>"><%= book.title%></a></h3>
+              <h3>By <span class="author-name"><a href="/author/<%= book.author%>"><%= book.author%></a></span></h3>
+              <p class="desc">
+                <%= book.summary%>
+              </p>
+              <a href="/book/<%=book.book_id%>/<%=book.title%>" class="more">Read more.</a>
+            </div>
+        </div>
+      
+        <% } %>
+      </div>
+    </section>
+    <script>
+      
+// header animation
+const header = document.querySelector(".header");
+
+window.onscroll = () => {
+  if (window.scrollY > 50) {
+    header.classList.add("header-active");
+  } else {
+    header.classList.remove("header-active");
+  }
+};
+
+// scroll full page animation
+$(document).scroll(function () {
+  howdiv = document.getElementById("how");
+  randomdiv = document.getElementById("random");
+  const myScrollFunc = function () {
+    const y = window.scrollY;
+    if (y >= 700) {
+      howdiv.className = "how show";
+    }
+    if (y >= 1400) {
+      randomdiv.className = "latest show";
+    }
+  };
+  window.addEventListener("scroll", myScrollFunc);
+});
+
+$(document).ready(function () {
+  $("button").click(function () {
+    $(".content").slideUp(500).delay(5000).slideDown(500);
+  });
+});
+    </script>
+<%- include('../partials/footer')%>

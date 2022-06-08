@@ -1,0 +1,48 @@
+<%- include ('../partials/header') %>
+<section class="signup login">
+  <form action="/login" method="post">
+    <div class="wrapper">
+      <div class="signup-left login-left">
+        <a href="/" class="back">
+          <span class="arrow-left"> <i class="fa-solid fa-arrow-left"></i></span
+          >Back</a
+        >
+        <h2 class="medium-title">Log in</h2>
+        <p>Don't have an account? <a href="/signup">Create one now</a></p>
+        <div class="div-username">
+          <label for="username" class="label-username">Username</label>
+          <input
+            type="username"
+            name="username"
+            id="username"
+            placeholder="Start typing..."
+          />
+        </div>
+        <div class="div-email">
+          <label for="email" class="label-email">Email</label>
+          <input
+            type="email"
+            name="email"
+            id="email"
+            placeholder="Start typing..."
+          />
+        </div>
+        <div class="div-password">
+          <label for="password">Password</label>
+          <input
+            type="password"
+            name="password"
+            id="password"
+            placeholder="Start typing..."
+          />
+        </div>
+        <!-- <div class="password-forgot">
+            <a href="/password/forgot" class="forgot">Forgot your password?</a>
+        </div> -->
+        <button type="submit" class="signup-button">Log in</button>
+      </div>
+      <div class="signup-right"></div>
+    </div>
+  </form>
+</section>
+<%- include ('../partials/footer') %>

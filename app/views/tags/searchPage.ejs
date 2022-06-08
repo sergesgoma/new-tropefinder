@@ -1,0 +1,149 @@
+<%- include ('../partials/header') %> <% if (books.length !== 0) {%>
+<section class="book-background">
+  <div class="book-separator">
+    <section class="section-title">
+      <h3 class="search-title"><%= search %></h3>
+    </section>
+    <section class="search-img"></section>
+  </div>
+</section>
+<section class="search-details">
+  <div class="search-details-book">
+    <% for (const book of books) { %>
+    <div class="search-book">
+      <a data-tooltip="<%= book.summary%>" href="/book/<%=book.book_id%>/<%=book.title%>"
+        ><img
+          src="<%= book.img %>"
+          alt="<%= book.title%>"
+          class="latest-img thumbnail"
+          loading="lazy" 
+        />
+      </a>
+      <h3 class="book-title">
+        <a href="/book/<%=book.book_id%>/<%=book.title%>"><%= book.title %></a>
+      </h3>
+      <h3 class="author-block">
+        By
+        <span class="author-name"
+          ><a href="/author/<%= book.author %>"><%= book.author %></a></span
+        >
+      </h3>
+    </div>
+    <% } %>
+  </div>
+</section>
+<% } %> <% if (books.length == 0) {%>
+<section class="book-background close-footer">
+  <div class="book-separator">
+    <section class="section-title">
+      <h3 class="search-title full-page">No results for '<%=search%>'</h3>
+    </section>
+    <section class="search-img"></section>
+  </div>
+</section>
+<a href="/" class="return">Return</a>
+<% }%>
+
+<div class="pagination">
+  <li class="page-item previous-page disable">
+    <a href="#" class="page-link">Prev</a>
+  </li>
+  <li class="page-item current-page active">
+    <a href="#" class="page-link">1</a>
+  </li>
+  <li class="page-item dots">
+    <a href="#" class="page-link">...</a>
+  </li>
+
+  <li class="page-item current-page">
+    <a href="#" class="page-link">5</a>
+  </li>
+
+  <li class="page-item current-page">
+    <a href="#" class="page-link">6</a>
+  </li>
+  <li class="page-item dots">
+    <a href="#" class="page-link">...</a>
+  </li>
+  <li class="page-item current-page">
+    <a href="#" class="page-link">10</a>
+  </li>
+  <li class="page-item next-page">
+    <a href="#" class="page-link">Next</a>
+  </li>
+</div>
+
+<script>
+function getPageList(totalPages, page, maxLength){
+  function range(start, end){
+    return Array.from(Array(end - start + 1), (_, i) => i + start);
+  }
+
+  const sideWidth = maxLength < 9 ? 1 : 2;
+  const leftWidth = (maxLength - sideWidth * 2 - 3) >> 1;
+  const rightWidth = (maxLength - sideWidth * 2 - 3) >> 1;
+
+  if(totalPages <= maxLength){
+    return range(1, totalPages);
+  }
+
+  if(page <= maxLength - sideWidth - 1 - rightWidth){
+    return range(1, maxLength - sideWidth - 1).concat(0, range(totalPages - sideWidth + 1, totalPages));
+  }
+
+  if(page >= totalPages - sideWidth - 1 - rightWidth){
+    return range(1, sideWidth).concat(0, range(totalPages- sideWidth - 1 - rightWidth - leftWidth, totalPages));
+  }
+
+  return range(1, sideWidth).concat(0, range(page - leftWidth, page + rightWidth), 0, range(totalPages - sideWidth + 1, totalPages));
+}
+
+$(function(){
+  const numberOfItems = $(".search-details-book .search-book").length;
+  const limitPerPage = 20; //How many card items visible per a page
+  const totalPages = Math.ceil(numberOfItems / limitPerPage);
+  const paginationSize = 7; //How many page elements visible in the pagination
+  let currentPage;
+
+  function showPage(whichPage){
+    if(whichPage < 1 || whichPage > totalPages) return false;
+
+    currentPage = whichPage;
+
+    $(".search-details-book .search-book").hide().slice((currentPage - 1) * limitPerPage, currentPage * limitPerPage).show();
+
+    $(".pagination li").slice(1, -1).remove();
+
+    getPageList(totalPages, currentPage, paginationSize).forEach(item => {
+      $("<li>").addClass("page-item").addClass(item ? "current-page" : "dots")
+      .toggleClass("active", item === currentPage).append($("<a>").addClass("page-link")
+      .attr({href: "javascript:void(0)"}).text(item || "...")).insertBefore(".next-page");
+    });
+
+    $(".previous-page").toggleClass("disable", currentPage === 1);
+    $(".next-page").toggleClass("disable", currentPage === totalPages);
+    return true;
+  }
+
+  $(".pagination").append(
+    $("<li>").addClass("page-item").addClass("previous-page").append($("<a>").addClass("page-link").attr({href: "javascript:void(0)"}).text("Prev")),
+    $("<li>").addClass("page-item").addClass("next-page").append($("<a>").addClass("page-link").attr({href: "javascript:void(0)"}).text("Next"))
+  );
+
+  $(".search-details-book").show();
+  showPage(1);
+
+  $(document).on("click", ".pagination li.current-page:not(.active)", function(){
+    return showPage(+$(this).text());
+  });
+
+  $(".next-page").on("click", function(){
+    return showPage(currentPage + 1);
+  });
+
+  $(".previous-page").on("click", function(){
+    return showPage(currentPage - 1);
+  });
+});
+</script>
+<%- include ('../partials/footer') %>

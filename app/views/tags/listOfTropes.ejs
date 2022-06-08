@@ -1,0 +1,48 @@
+<%- include ('../partials/header') %>
+<!-- container books -->
+<div class="container-books">
+  <div class="wrapper">
+    <h2 class="medium-title">All Tropes</h2>
+    <!-- One Trope Block -->
+    <div class="trope-wrapper">
+      <% for (const book of books) {%>
+      <div class="one-trope-block">
+        <p class="trope-description">
+          <span class="trope-name"
+            ><a href="/tags/<%=book.tag%>"><%= book.tag%>.</a></span
+          >
+          <%= book.description %>
+        </p>
+        <div class="random-container">
+          <!-- one book -->
+          <div class="random-book" id="book">
+            <a href="/book/<%= book.title%>"
+              ><img
+                src="/img/book covers/<%= book.img%>"
+                class="latest-img"
+                alt="<%= book.title%>"
+            /></a>
+            <div class="random-block">
+              <h3 class="book-title">
+                <a href="/book/<%=book.title%>"><%= book.title%></a>
+              </h3>
+              <h3>
+                By
+                <span class="author-name"
+                  ><a href="/author/<%= book.author%>"
+                    ><%= book.author%></a
+                  ></span
+                >
+              </h3>
+              <p class="desc"><%= book.summary%></p>
+              <a href="/book/<%=book.title%>" class="more">Read more.</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <% } %>
+    </div>
+  </div>
+</div>
+<!-- /container-books -->
+<%- include ('../partials/footer') %>

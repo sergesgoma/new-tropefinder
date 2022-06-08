@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>TropeFinder | The trope way to find a book</title>
+    <link rel="stylesheet" href="/css/style.css" />
+    <link
+      rel="stylesheet"
+      media="only screen and (max-width: 450px)"
+      href="/css/style.mobile.css"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="shortcut icon" href="/img/search.png" type="image/x-icon" />
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script
+      src="https://code.jquery.com/jquery-3.6.0.min.js"
+      integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+      crossorigin="anonymous"
+    ></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&family=Dosis:wght@300;500;700&family=Lora:ital,wght@0,400;0,500;0,700;1,400;1,500;1,700&family=Rubik:wght@300&display=swap"
+      rel="stylesheet"
+    />
+    <script
+      src="https://kit.fontawesome.com/c6f4b89e6b.js"
+      crossorigin="anonymous"
+    ></script>
+  </head>
+  
+  <body>
+    <header class="header">
+      <div class="wrapper wrapper-header">
+        <div class="logo-container">
+          <a href="/" class="logo"></a>
+          <h1>
+            <a href="/">trope<span class="blue">finder</span></a>
+          </h1>
+        </div>
+        <nav>
+          <a href="/" class="nav-elem">Home</a>
+          <a href="/#how" class="nav-elem">How it works</a>
+          <!-- <a href="/#random" class="nav-elem">Random Tropes</a> -->
+          <a href="/all-tropes" class="nav-elem">All Tropes</a>
+          <!-- <div class="dropdown">
+            <button
+              onclick="dropdown()"
+              class="dropdown-button"
+              id="dropdown-button"
+            >
+              Change universe <i class="fa-solid fa-angle-down"></i>
+            </button>
+            <div class="dropdown-child" id="dropdown-child">
+              <a href="/all" class="light-blue-bg br-30">All</a>
+              <a href="/fantasy">Fantasy</a>
+              <a href="/mystery">Mystery</a>
+              <a href="/romance">Romance</a>
+              <a href="/sf">Science Fiction</a>
+                <a href="/thriller">Thriller</a>
+            </div>
+          </div> -->
+          <% if (!sessionAuth) { %>
+          <a href="/signup" class="btn-signup nav-elem">Sign Up</a>
+          <a href="/login" class="btn-signup btn-login">Log in</a>
+          <% } %> <% if (sessionAuth) { %>
+          <form action="/logout" method="post">
+            <button class="btn-signup btn-logout">Log out</button>
+            <% } %>
+          </form>
+        </nav>
+      </div>
+    </header>
+  </body>
+</html>

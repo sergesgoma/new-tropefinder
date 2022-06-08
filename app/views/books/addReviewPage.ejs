@@ -1,0 +1,64 @@
+<%- include ('../partials/header') %>
+<section class="signup write-review-div">
+  <div class="container-books">
+    <div class="wrapper">
+      <a href="#" onclick="history.go(-1)" class="back">
+        <span class="arrow-left"> <i class="fa-solid fa-arrow-left"></i></span
+        >Back</a
+      >
+      <h2 class="medium-title">Write a review</h2>
+      <form action="/book/<%= title %>" method="post" class="form-add-book">
+        <!-- add book -->
+        <div>
+          <div class="div-review">
+            <div class="rating">
+              <label>
+                <input type="radio" name="stars" value="1" />
+                <span class="icon">★</span>
+              </label>
+              <label>
+                <input type="radio" name="stars" value="2" />
+                <span class="icon">★</span>
+                <span class="icon">★</span>
+              </label>
+              <label>
+                <input type="radio" name="stars" value="3" />
+                <span class="icon">★</span>
+                <span class="icon">★</span>
+                <span class="icon">★</span>
+              </label>
+              <label>
+                <input type="radio" name="stars" value="4" />
+                <span class="icon">★</span>
+                <span class="icon">★</span>
+                <span class="icon">★</span>
+                <span class="icon">★</span>
+              </label>
+              <label>
+                <input type="radio" name="stars" value="5" />
+                <span class="icon">★</span>
+                <span class="icon">★</span>
+                <span class="icon">★</span>
+                <span class="icon">★</span>
+                <span class="icon">★</span>
+              </label>
+            </div>
+            <textarea
+              placeholder="Start typing..."
+              id="review"
+              name="review"
+            ></textarea>
+          </div>
+          <button type="submit" class="btn-signup">Post a review</button>
+        </div>
+      </form>
+    </div>
+    <!-- /add-book -->
+  </div>
+</section>
+<script>
+  $(":radio").change(function () {
+    console.log("New star rating: " + this.value);
+  });
+</script>
+<%- include ('../partials/footer') %>
