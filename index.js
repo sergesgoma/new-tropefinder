@@ -8,13 +8,6 @@ require("dotenv").config({ path: "./.env" });
 
 const app = express();
 
-// connect DB
-// const db = require('./app/database/db');
-// db.authenticate()
-//   .then(() => console.log("Database connected..."))
-//   .catch((err) => console.log("Error:" + err));
-
-
 
 // definition of the view engine + views path
 app.set("view engine", "ejs");

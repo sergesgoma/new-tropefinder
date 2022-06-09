@@ -94,6 +94,10 @@ p {
   padding-bottom: 2rem;
 }
 
+.my-3 {
+  margin: 3rem 0;
+}
+
 .back {
   font-size: 16px;
   color: #222;
@@ -254,6 +258,12 @@ nav a:hover {
   width: 100%;
   border-radius: 6px;
   transition: 0.3s ease-in-out all;
+}
+
+.dropdown-button a {
+  text-decoration: none;
+  color: white;
+  padding: 1rem;
 }
 
 /* main */
@@ -1063,10 +1073,11 @@ footer p {
 }
 
 .one-review {
-  border-top: 1px solid #eee;
+  border-bottom: 1px solid #eee;
   padding-top: 1rem;
   margin: 1rem 2rem 3rem 2rem;
   position: relative;
+  padding-bottom: 4rem;
 }
 
 .review-list {
@@ -1106,6 +1117,16 @@ footer p {
 
 .review-bottom a:hover {
   color: var(--blue);
+}
+
+.block-review-bottom {
+  display: flex;
+  justify-content: space-between;
+}
+
+.updated {
+  font-size: 12px;
+  font-style: italic;
 }
 
 /* white a review */
@@ -1537,7 +1558,7 @@ footer p {
 .corner-tag {
   padding-bottom: 0.5rem;
   overflow: auto;
-  height:350px;
+  height: 350px;
 }
 
 /* Caroussel */

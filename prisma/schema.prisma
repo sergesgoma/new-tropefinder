@@ -7,9 +7,9 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model books {
-  id                Int @id @default(autoincrement())
-  book_id           Int @unique
+model Book {
+  id                Int      @id @default(autoincrement())
+  book_id           Int      @unique
   title             String?
   author            String?
   img               String?
@@ -28,21 +28,26 @@ model books {
   genres            String[]
   summary           String?
 
+  Reviews Reviews[]
 }
 
-model user {
-  user_id Int     @id @default(autoincrement())
-  username    String @unique
-  email   String  @unique
+model User {
+  user_id  Int       @id @default(autoincrement())
+  username String    @unique
+  email    String    @unique
   password String?
-  isAdmin Boolean @default(false)
+  isAdmin  Boolean   @default(false)
+  Reviews  Reviews[]
 }
 
-model reviews {
+model Reviews {
   review_id Int     @id @default(autoincrement())
-  username    String @unique
-  review   String?
-  title String?
-  stars Int?
-  updated Boolean?
+  user_id   Int
+  username  String?
+  user      User    @relation(fields: [user_id], references: [user_id])
+  review    String?
+  book_id   Int     
+  book      Book    @relation(fields: [book_id], references: [book_id])
+  stars     Int?
+  updated   Boolean @default(false)
 }

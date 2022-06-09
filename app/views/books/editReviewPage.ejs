@@ -7,9 +7,8 @@
         >Back</a
       >
       <h2 class="medium-title">Edit your review</h2>
-      <% reviews.forEach(details => {%>
       <form
-        action="/book/<%= details.title%>/<%= id%>/edit-review"
+        action="/book/<%= book_id %>/<%= title%>/<%= review_id %>/edit-review"
         method="post"
         class="form-add-book"
       >
@@ -17,7 +16,7 @@
         <div>
           <div class="div-review">
             <div class="rating">
-              <% if (details.stars === 5) { %>
+              <% if (reviews[0].stars === 5) { %>
               <label>
                 <input type="radio" name="stars" value="1" checked />
                 <span class="icon">★</span>
@@ -48,7 +47,7 @@
                 <span class="icon">★</span>
                 <span class="icon">★</span>
               </label>
-              <%}%> <% if (details.stars === 4) { %>
+              <%}%> <% if (reviews[0].stars === 4) { %>
               <label>
                 <input type="radio" name="stars" value="1" checked />
                 <span class="icon">★</span>
@@ -79,7 +78,7 @@
                 <span class="icon">★</span>
                 <span class="icon">★</span>
               </label>
-              <%}%> <% if (details.stars === 3) { %>
+              <%}%> <% if (reviews[0].stars === 3) { %>
               <label>
                 <input type="radio" name="stars" value="1" checked />
                 <span class="icon">★</span>
@@ -110,7 +109,7 @@
                 <span class="icon">★</span>
                 <span class="icon">★</span>
               </label>
-              <%}%> <% if (details.stars === 2) { %>
+              <%}%> <% if (reviews[0].stars === 2) { %>
               <label>
                 <input type="radio" name="stars" value="1" checked />
                 <span class="icon">★</span>
@@ -141,7 +140,7 @@
                 <span class="icon">★</span>
                 <span class="icon">★</span>
               </label>
-              <%}%> <% if (details.stars === 1) { %>
+              <%}%> <% if (reviews[0].stars === 1) { %>
               <label>
                 <input type="radio" name="stars" value="1" checked />
                 <span class="icon">★</span>
@@ -172,7 +171,7 @@
                 <span class="icon">★</span>
                 <span class="icon">★</span>
               </label>
-              <%}%> <% if (details.stars === 0) { %>
+              <%}%> <% if (reviews[0].stars === 0) { %>
               <label>
                 <input type="radio" name="stars" value="1" />
                 <span class="icon">★</span>
@@ -205,12 +204,11 @@
               </label>
               <%}%>
             </div>
-            <textarea id="review" name="review"><%= details.review %></textarea>
+            <textarea id="review" name="review"><%= reviews[0].review %></textarea>
           </div>
           <button type="submit" class="btn-signup">Edit your review</button>
         </div>
       </form>
-      <% })%>
     </div>
     <!-- /add-book -->
   </div>

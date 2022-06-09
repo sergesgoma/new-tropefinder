@@ -1,5 +1,4 @@
-<%- include('../partials/header')%>
-<% for (let book of books) {%>
+<%- include('../partials/header')%> <% for (let book of books) {%>
 <section class="book-background">
   <div class="book-separator book-separator-mobile">
     <section class="section-img">
@@ -92,15 +91,20 @@
                 <td class="bold">Genres:</td>
                 <td class="book-genre">
                   <% for (let i=0; i< book.genres.length; i++) {%>
-                  <a href="/genre/<%= book.genres[i] %>" 
-                    ><%= book.genres[i] %></a>
+                  <a href="/genre/<%= book.genres[i] %>"
+                    ><%= book.genres[i] %></a
+                  >
                   <% } %>
                 </td>
               </tr>
               <% if (book.series) { %>
               <tr>
                 <td class="bold">Series:</td>
-                <td><a href="/series/<%= book.seriesName %>"><%= book.seriesName %> #<%= book.numSeries %></a></td>
+                <td>
+                  <a href="/series/<%= book.seriesName %>"
+                    ><%= book.seriesName %> #<%= book.numSeries %></a
+                  >
+                </td>
               </tr>
               <% } %>
               <tr>
@@ -124,37 +128,37 @@
         <label for="tab-3"
           >Reviews
           <span class="star-review rating small-rating rating-left">
-            <% if (book.avgStars === 5) {%>
+            <% if (avgStars._avg.stars === 5) {%>
             <span class="icon checked">★</span>
             <span class="icon checked">★</span>
             <span class="icon checked">★</span>
             <span class="icon checked">★</span>
             <span class="icon checked">★</span>
-            <% } %> <% if (book.avgStars < 5 && book.avgStars >= 4) {%>
+            <% } %> <% if (avgStars._avg.stars < 5 && avgStars._avg.stars >= 4) {%>
             <span class="icon checked">★</span>
             <span class="icon checked">★</span>
             <span class="icon checked">★</span>
             <span class="icon checked">★</span>
             <span class="icon">★</span>
-            <% } %> <% if (book.avgStars < 4 && book.avgStars >= 3) {%>
+            <% } %> <% if (avgStars._avg.stars < 4 && avgStars._avg.stars >= 3) {%>
             <span class="icon checked">★</span>
             <span class="icon checked">★</span>
             <span class="icon checked">★</span>
             <span class="icon">★</span>
             <span class="icon">★</span>
-            <% } %> <% if (book.avgStars < 3 && book.avgStars >= 2) {%>
+            <% } %> <% if (avgStars._avg.stars < 3 && avgStars._avg.stars >= 2) {%>
             <span class="icon checked">★</span>
             <span class="icon checked">★</span>
             <span class="icon">★</span>
             <span class="icon">★</span>
             <span class="icon">★</span>
-            <% } %> <% if (book.avgStars < 2 && book.avgStars >= 1) {%>
+            <% } %> <% if (avgStars._avg.stars < 2 && avgStars._avg.stars >= 1) {%>
             <span class="icon checked">★</span>
             <span class="icon">★</span>
             <span class="icon">★</span>
             <span class="icon">★</span>
             <span class="icon">★</span>
-            <% } %> <% if (book.avgStars === 0 || book.avgStars == undefined )
+            <% } %> <% if (avgStars._avg.stars === 0 || avgStars._avg.stars == undefined )
             {%>
             <span class="icon">★</span>
             <span class="icon">★</span>
@@ -166,7 +170,7 @@
         </label>
         <div class="tab__content">
           <div class="review-wrapper">
-            <% if (!sessionAuth) {%>
+            <% if (sessionAuth === undefined) {%>
             <p class="p-review">
               Only TropeFinder members can share their reviews.
             </p>
@@ -175,46 +179,66 @@
               Discover the reviews of fellow TropeFinder members.
             </p>
             <% } %>
-            <div class="review-list">
-              
-              <p class="p-16 bt-grey">No reviews yet.</p>
-              <% if (book.review !== undefined) {%> <% for (let
-              i=0; i < book.review.length; i++) { %>
+            <div class="review-list bt-grey">
+              <% if (!sessionAuth || sessionAuth && reviews.length === 0){ %>
+              <div class="center my-3">
+                <a
+                  href="/book/<%= book.book_id %>/<%= book.title %>/write-review"
+                  class="reviews-btn write-review"
+                >
+                  Write a review</a
+                >
+              </div>
+              <% } %> <% for (let i=0; i < 2; i++) { %><% if
+              (reviews.length > 0 && !reviews[i].username == username &&
+              sessionAuth) {%>
+              <div class="center my-3">
+                <a
+                  href="/book/<%= book.book_id %>/<%= book.title %>/write-review"
+                  class="reviews-btn write-review"
+                >
+                  Write a review</a
+                >
+              </div>
+              <% } %><% } %> <% if (reviews.length === 0) { %>
+              <p class="p-16">No reviews yet.</p>
+              <% } %>  <% if (reviews !== undefined) {%> <% for (let i=0;
+              i < reviews.length; i++) { %>
               <div class="one-review">
                 <div class="block-username-rating">
-                  <h3 class="username"><%= book.username[i] %></h3>
+                  <h3 class="username"><%= reviews[i].username %></h3>
                   <div class="rating small-rating">
-                    <% if (book.stars[i] === 5) {%>
+                    <% if (reviews[i].stars === 5) {%>
                     <span class="icon checked">★</span>
                     <span class="icon checked">★</span>
                     <span class="icon checked">★</span>
                     <span class="icon checked">★</span>
                     <span class="icon checked">★</span>
-                    <% } %> <% if (book.stars[i] === 4) {%>
+                    <% } %> <% if (reviews[i].stars === 4) {%>
                     <span class="icon checked">★</span>
                     <span class="icon checked">★</span>
                     <span class="icon checked">★</span>
                     <span class="icon checked">★</span>
                     <span class="icon">★</span>
-                    <% } %> <% if (book.stars[i] === 3) {%>
+                    <% } %> <% if (reviews[i].stars === 3) {%>
                     <span class="icon checked">★</span>
                     <span class="icon checked">★</span>
                     <span class="icon checked">★</span>
                     <span class="icon">★</span>
                     <span class="icon">★</span>
-                    <% } %> <% if (book.stars[i] === 2) {%>
+                    <% } %> <% if (reviews[i].stars === 2) {%>
                     <span class="icon checked">★</span>
                     <span class="icon checked">★</span>
                     <span class="icon">★</span>
                     <span class="icon">★</span>
                     <span class="icon">★</span>
-                    <% } %> <% if (book.stars[i] === 1) {%>
+                    <% } %> <% if (reviews[i].stars === 1) {%>
                     <span class="icon checked">★</span>
                     <span class="icon">★</span>
                     <span class="icon">★</span>
                     <span class="icon">★</span>
                     <span class="icon">★</span>
-                    <% } %> <% if (book.stars[i] === 0) {%>
+                    <% } %> <% if (reviews[i].stars === 0) {%>
                     <span class="icon">★</span>
                     <span class="icon">★</span>
                     <span class="icon">★</span>
@@ -223,23 +247,28 @@
                     <% } %>
                   </div>
                 </div>
-                <p class="review-text"><%= book.review[i] %></p>
-                <% for(const book of books) {%> <% if (sessionAuth &&
-                book.username[i] == username) { %>
+                <p class="review-text"><%= reviews[i].review %></p>
+                <div class="block-review-bottom">
+                  <% if (reviews[i].updated) {%>
+                  <p class="updated">updated</p>
+                  <%}%>
+                  <div class="review-bottom">
+                    <% if (sessionAuth && reviews[i].username == username) { %>
 
-                <div class="review-bottom">
-                  <span class="pen"
-                    ><a
-                      href="/book/<%=book.title%>/<%= book.reviewId[i] %>/edit-review"
-                      ><i class="fa-solid fa-pen"></i></a
-                  ></span>
-                  <span class="dustbin"
-                    ><a
-                      href="/book/<%=book.title%>/<%=book.reviewId[i] %>/delete-review"
-                      ><i class="fa-solid fa-trash-can"></i></a
-                  ></span>
+                    <span class="pen"
+                      ><a
+                        href="/book/<%= book_id %>/<%=book.title%>/<%= reviews[i].review_id %>/edit-review"
+                        ><i class="fa-solid fa-pen"></i></a
+                    ></span>
+                    <span class="dustbin"
+                      ><a
+                        href="/book/<%= book_id %>/<%=book.title%>/<%=reviews[i].review_id %>/delete-review"
+                        ><i class="fa-solid fa-trash-can"></i></a
+                    ></span>
+
+                    <% } %>
+                  </div>
                 </div>
-                <% } %> <% }%>
               </div>
               <% }%> <% }%>
               <!-- /one review -->
@@ -267,13 +296,12 @@
     <h3 class="recs-title center">In the same vein</h3>
     <div id="carousel">
       <div id="content">
-        <% for (let i=0; i < recs.length; i++) {%>    
-          <% if (book.title !== recs[i].title) {%>    
-          <a href="/book/<%=recs[i].book_id%>/<%= recs[i].title %>">          
+        <% for (let i=0; i < recs.length; i++) {%> <% if (book.title !==
+        recs[i].title) {%>
+        <a href="/book/<%=recs[i].book_id%>/<%= recs[i].title %>">
           <img class="item" src="<%= recs[i].img %>" />
         </a>
-        <% } %>
-        <% } %>
+        <% } %> <% } %>
       </div>
     </div>
     <button id="prev">
@@ -303,7 +331,7 @@
 <!-- /Caroussel Recs -->
 <% } %>
 <script>
-    // header animation
+  // header animation
   const header = document.querySelector(".header");
   window.onscroll = () => {
     if (window.scrollY > 50) {
@@ -326,9 +354,8 @@
     }
   });
 
-
   // scroll full page animation
- $(document).ready(function () {
+  $(document).ready(function () {
     $("button").click(function () {
       $(".content").slideUp(500).delay(5000).slideDown(500);
     });

@@ -1,8 +1,6 @@
 const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
-const { check, validationResult } = require("express-validator");
 const bcrypt = require("bcrypt");
-const createError = require("http-errors");
 
 const authController = {
   signupPage: async (req, res) => {
@@ -12,7 +10,7 @@ const authController = {
   signUp: async (req, res) => {
     const { username, email, password } = req.body;
     // Check if email exists
-    const user = prisma.user.findMany({
+    const user = prisma.User.findMany({
       where: { email: email },
     });
     if (user.length >= 1) {
@@ -28,14 +26,22 @@ const authController = {
           });
         } else {
           // then add the new user to the DB with the hashed and salted pawword
-          const createUser = prisma.user.create({
+          const createUser = prisma.User.create({
             data: {
               username,
               email,
               password: hash,
             },
-          });
-          res.json(createUser);
+          })
+            .then((result) => {
+              res.redirect("/login");
+            })
+            .catch((err) => {
+              console.log(err);
+              res.status(500).json({
+                error: err,
+              });
+            });
         }
       });
     }
@@ -44,7 +50,29 @@ const authController = {
     const sessionAuth = req.session.Auth;
     res.render("login", { sessionAuth });
   },
-  logIn: async (req, res) => {},
+  logIn: async (req, res) => {
+    const { email, username, password } = req.body;
+
+    // check if user exists
+    const user = await prisma.User.findUnique({ where: { email: email } });
+    // if user doesn't exist, redirect to the login page
+    if (!user) {
+      return res.redirect("/login");
+    }
+    // check if the password entered is the same as the user's in the DB
+    const isMatch = await bcrypt.compare(password, user.password);
+    // if not, redirect to the login page
+    if (!isMatch) {
+      return res.redirect("/login");
+    }
+    // if everything matches, redirect to the homepage
+    const oneUser = await prisma.User.findUnique({where: {username: username}});
+    req.session.user_id = oneUser.user_id;
+    req.session.isAuth = true;
+    req.session.username = username;
+    const sessionAuth = req.session.isAuth;
+    res.redirect("/");
+  },
   logOut: async (req, res) => {
     req.session.destroy((err) => {
       if (err) throw reportError;

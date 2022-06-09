@@ -6,7 +6,7 @@ const tagController = {
     const { search } = req.query;
     const sessionAuth = req.session.isAuth;
 
-    const books = await prisma.books.findMany({
+    const books = await prisma.Book.findMany({
       where: {
         OR: [
           {
@@ -49,7 +49,7 @@ const tagController = {
     const { tag } = req.params;
     const sessionAuth = req.session.isAuth;
     try {
-      const books = await prisma.books.findMany({
+      const books = await prisma.Book.findMany({
         where: {
           tag: {
             has: tag.toLowerCase(),
@@ -73,7 +73,7 @@ const tagController = {
     const { author } = req.params;
     const sessionAuth = req.session.isAuth;
     try {
-      const books = await prisma.books.findMany({
+      const books = await prisma.Book.findMany({
         where: {
           author: {
             contains: author,
@@ -98,7 +98,7 @@ const tagController = {
     const { series } = req.params;
     const sessionAuth = req.session.isAuth;
     try {
-      const books = await prisma.books.findMany({
+      const books = await prisma.Book.findMany({
         where: {
           seriesName: {
             contains: series,
@@ -118,7 +118,7 @@ const tagController = {
     const { genre } = req.params;
     const sessionAuth = req.session.isAuth;
     try {
-      const books = await prisma.books.findMany({
+      const books = await prisma.Book.findMany({
         where: {
           genres: {
             has: genre,
