@@ -12,12 +12,13 @@
   <div class="search-details-book">
     <%for (const book of books) {%>
     <div class="search-book">
-        <h3 class="nb-series"><%= book.numSeries %></h3>
-      <a href="/book/<%=book.book_id%>/<%=book.title%>"
+        <h3 class="nb-series">#<%= book.numSeries %></h3>
+      <a data-tooltip="<%= book.summary%>" href="/book/<%=book.book_id%>/<%=book.title%>"
         ><img
           src="<%= book.img %>"
           alt="<%= book.title%>"
           class="latest-img thumbnail"
+          loading="lazy"
         />
       </a>
       <h3 class="book-title">

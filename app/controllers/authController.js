@@ -65,13 +65,23 @@ const authController = {
     if (!isMatch) {
       return res.redirect("/login");
     }
-    // if everything matches, redirect to the homepage
-    const oneUser = await prisma.User.findUnique({where: {username: username}});
-    req.session.user_id = oneUser.user_id;
-    req.session.isAuth = true;
-    req.session.username = username;
-    const sessionAuth = req.session.isAuth;
-    res.redirect("/");
+    if (isMatch) {
+      // if everything matches, redirect to the homepage
+      const oneUser = await prisma.User.findUnique({
+        where: { username: username },
+      });
+
+      req.session.user_id = oneUser.user_id;
+      req.session.isAuth = true;
+      req.session.username = username;
+      const sessionAuth = req.session.isAuth;
+      // redirect the user to the session cookie if it exists
+      var redirectTo = req.session.redirectTo || "/";
+      // delete the session cookie so it is not present on the next request
+      delete req.session.redirectTo;
+      // redirecting the user to where they want to go
+      res.redirect(redirectTo || "/");
+    }
   },
   logOut: async (req, res) => {
     req.session.destroy((err) => {

@@ -62,9 +62,11 @@
         </div>
         <!-- /BUY NOW BUTTON -->
         <!-- WISHLIST BUTTON -->
-        <div class="wishlist">
-          <a href="#">Wishlist <span class="heart">&hearts;</span></a>
-        </div>
+        <form action="/wishlist" method="post">
+          <button type="submit" class="wishlist">
+            Wishlist <span class="heart">&hearts;</span>
+          </button>
+        </form>
         <!-- /WISHLIST BUTTON -->
       </div>
     </section>
@@ -134,32 +136,36 @@
             <span class="icon checked">★</span>
             <span class="icon checked">★</span>
             <span class="icon checked">★</span>
-            <% } %> <% if (avgStars._avg.stars < 5 && avgStars._avg.stars >= 4) {%>
-            <span class="icon checked">★</span>
-            <span class="icon checked">★</span>
-            <span class="icon checked">★</span>
-            <span class="icon checked">★</span>
-            <span class="icon">★</span>
-            <% } %> <% if (avgStars._avg.stars < 4 && avgStars._avg.stars >= 3) {%>
-            <span class="icon checked">★</span>
-            <span class="icon checked">★</span>
-            <span class="icon checked">★</span>
-            <span class="icon">★</span>
-            <span class="icon">★</span>
-            <% } %> <% if (avgStars._avg.stars < 3 && avgStars._avg.stars >= 2) {%>
-            <span class="icon checked">★</span>
-            <span class="icon checked">★</span>
-            <span class="icon">★</span>
-            <span class="icon">★</span>
-            <span class="icon">★</span>
-            <% } %> <% if (avgStars._avg.stars < 2 && avgStars._avg.stars >= 1) {%>
-            <span class="icon checked">★</span>
-            <span class="icon">★</span>
-            <span class="icon">★</span>
-            <span class="icon">★</span>
-            <span class="icon">★</span>
-            <% } %> <% if (avgStars._avg.stars === 0 || avgStars._avg.stars == undefined )
+            <% } %> <% if (avgStars._avg.stars < 5 && avgStars._avg.stars >= 4)
             {%>
+            <span class="icon checked">★</span>
+            <span class="icon checked">★</span>
+            <span class="icon checked">★</span>
+            <span class="icon checked">★</span>
+            <span class="icon">★</span>
+            <% } %> <% if (avgStars._avg.stars < 4 && avgStars._avg.stars >= 3)
+            {%>
+            <span class="icon checked">★</span>
+            <span class="icon checked">★</span>
+            <span class="icon checked">★</span>
+            <span class="icon">★</span>
+            <span class="icon">★</span>
+            <% } %> <% if (avgStars._avg.stars < 3 && avgStars._avg.stars >= 2)
+            {%>
+            <span class="icon checked">★</span>
+            <span class="icon checked">★</span>
+            <span class="icon">★</span>
+            <span class="icon">★</span>
+            <span class="icon">★</span>
+            <% } %> <% if (avgStars._avg.stars < 2 && avgStars._avg.stars >= 1)
+            {%>
+            <span class="icon checked">★</span>
+            <span class="icon">★</span>
+            <span class="icon">★</span>
+            <span class="icon">★</span>
+            <span class="icon">★</span>
+            <% } %> <% if (avgStars._avg.stars === 0 || avgStars._avg.stars ==
+            undefined ) {%>
             <span class="icon">★</span>
             <span class="icon">★</span>
             <span class="icon">★</span>
@@ -189,9 +195,8 @@
                   Write a review</a
                 >
               </div>
-              <% } %> <% for (let i=0; i < 2; i++) { %><% if
-              (reviews.length > 0 && !reviews[i].username == username &&
-              sessionAuth) {%>
+              <% } %> <% for (let i=0; i < 2; i++) { %><% if (reviews.length > 0
+              && !reviews[i].username == username && sessionAuth) {%>
               <div class="center my-3">
                 <a
                   href="/book/<%= book.book_id %>/<%= book.title %>/write-review"
@@ -202,8 +207,8 @@
               </div>
               <% } %><% } %> <% if (reviews.length === 0) { %>
               <p class="p-16">No reviews yet.</p>
-              <% } %>  <% if (reviews !== undefined) {%> <% for (let i=0;
-              i < reviews.length; i++) { %>
+              <% } %> <% if (reviews !== undefined) {%> <% for (let i=0; i <
+              reviews.length; i++) { %>
               <div class="one-review">
                 <div class="block-username-rating">
                   <h3 class="username"><%= reviews[i].username %></h3>

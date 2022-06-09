@@ -8,7 +8,6 @@ require("dotenv").config({ path: "./.env" });
 
 const app = express();
 
-
 // definition of the view engine + views path
 app.set("view engine", "ejs");
 app.set("views", [
@@ -16,7 +15,7 @@ app.set("views", [
   path.join(__dirname, "./app/views/main"),
   path.join(__dirname, "./app/views/auth"),
   path.join(__dirname, "./app/views/tags"),
-  path.join(__dirname, "./app/views/books")
+  path.join(__dirname, "./app/views/books"),
 ]);
 
 // static file path
@@ -30,6 +29,7 @@ app.use(
     secret: process.env.SECRET_KEY,
     resave: false,
     saveUninitialized: false,
+    cookie: { maxAge: 60000 },
   })
 );
 

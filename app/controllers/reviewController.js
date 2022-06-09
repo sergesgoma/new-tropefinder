@@ -5,6 +5,7 @@ const reviewController = {
   addReviewPage: async (req, res) => {
     const { book_id, title } = req.params;
     const sessionAuth = req.session.isAuth;
+    
     res.render("addReviewPage", { sessionAuth, title, book_id });
   },
   addReview: async (req, res) => {

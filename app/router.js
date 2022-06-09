@@ -36,24 +36,16 @@ router.post("/logout", authController.logOut);
 router.get("/signup", authController.signupPage);
 router.post("/signup", authController.signUp);
 
-// ADD A REVIEW
-router.get("/book/:book_id/:title/write-review", isAuth, reviewController.addReviewPage);
+// CRUD REVIEW PAGES
+router.get("/book/:book_id/:title/write-review",isAuth,reviewController.addReviewPage);
 router.post("/book/:book_id/:title/", reviewController.addReview);
-
-// EDIT A REVIEW
-router.get(
-  "/book/:book_id/:title/:review_id/edit-review",
-  isAuth,
-  reviewController.editReviewPage
-);
-router.post(
-  "/book/:book_id/:title/:review_id/edit-review",
-  reviewController.editReview
-);
-
-// DELETE A REVIEW
+router.get("/book/:book_id/:title/:review_id/edit-review", isAuth, reviewController.editReviewPage);
+router.post("/book/:book_id/:title/:review_id/edit-review", reviewController.editReview);
 router.get("/book/:book_id/:title/:review_id/delete-review", reviewController.deleteReview);
 
-
+// WISHLIST PAGES
+router.get("/wishlist", isAuth, bookController.wishlistPage);
+router.post("/wishlist", isAuth, bookController.addWishlist);
+router.get("/wishlist/delete", bookController.deleteWishlist);
 
 module.exports = router;

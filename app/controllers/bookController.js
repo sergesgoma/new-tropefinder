@@ -75,6 +75,14 @@ const bookController = {
       console.log(err);
     }
   },
+  wishlistPage: async (req, res) => {
+    const sessionAuth = req.session.isAuth;
+    res.render("wishlistPage", { sessionAuth });
+  },
+  addWishlist: async (req, res) => {
+    res.redirect("/wishlist");
+  },
+  deleteWishlist: async (req, res) => {},
 };
 
 module.exports = bookController;
