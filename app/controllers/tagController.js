@@ -61,7 +61,7 @@ const tagController = {
           },
           {
             gdRating: "desc",
-          }
+          },
         ],
       });
       res.render("allTagsPage", { books, tag, sessionAuth });
@@ -128,6 +128,22 @@ const tagController = {
       res.render("genrePage", { books, genre, sessionAuth });
     } catch (err) {
       console.log(err);
+    }
+  },
+  tropeList: async (req, res) => {
+    try {
+      const sessionAuth = req.session.isAuth;
+      const tropes = await prisma.Tropes.findMany({
+        select: { trope: true },
+        orderBy: {
+          trope: "asc",
+        },
+      });
+
+      res.render("listOfTropes", { sessionAuth, tropes });
+    } catch (err) {
+      console.log(err);
+      res.render("error");
     }
   },
 };

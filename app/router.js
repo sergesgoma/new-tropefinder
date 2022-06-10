@@ -45,7 +45,11 @@ router.get("/book/:book_id/:title/:review_id/delete-review", reviewController.de
 
 // WISHLIST PAGES
 router.get("/wishlist", isAuth, bookController.wishlistPage);
-router.post("/wishlist", isAuth, bookController.addWishlist);
-router.get("/wishlist/delete", bookController.deleteWishlist);
+router.get("/wishlist/:book_id", isAuth, bookController.addWishlistPage);
+router.post("/wishlist/:book_id", isAuth, bookController.addWishlist);
+router.get("/wishlist/:book_id/delete", bookController.deleteWishlist);
+
+// TROPE LIST
+router.get("/all-tropes", tagController.tropeList);
 
 module.exports = router;

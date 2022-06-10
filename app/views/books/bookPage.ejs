@@ -62,11 +62,17 @@
         </div>
         <!-- /BUY NOW BUTTON -->
         <!-- WISHLIST BUTTON -->
-        <form action="/wishlist" method="post">
+        <% if(isWished.length === 0 || isWished === undefined) {%>
+        <form action="/wishlist/<%= book_id %>" method="post">
           <button type="submit" class="wishlist">
             Wishlist <span class="heart">&hearts;</span>
           </button>
         </form>
+        <% } %> <% if (isWished.length !== 0 && sessionAuth && user_id != undefined) {%>
+        <div class="wishlist">
+          <a href="/wishlist/<%= book_id %>/delete">Wishlist &#128148;</a>
+        </div>
+        <% } %>
         <!-- /WISHLIST BUTTON -->
       </div>
     </section>
@@ -92,9 +98,9 @@
               <tr>
                 <td class="bold">Genres:</td>
                 <td class="book-genre">
-                  <% for (let i=0; i< book.genres.length; i++) {%>
-                  <a href="/genre/<%= book.genres[i] %>"
-                    ><%= book.genres[i] %></a
+                  <% for (let i=0; i< genre.length; i++) {%>
+                  <a href="/genre/<%= genre[i] %>"
+                    ><%=genre[i] %></a
                   >
                   <% } %>
                 </td>
@@ -286,8 +292,8 @@
     <div class="corner">
       <h4>Tags</h4>
       <div class="corner-tag">
-        <% book.tag.sort(); for(let i=0; i < book.tag.length; i++) {%>
-        <a href="/tags/<%= book.tag[i] %>"><%= book.tag[i] %></a>
+        <%  const oneTag = tags.filter((item) => filteredTropes.includes(item)); oneTag.sort(); for(let i=0; i < oneTag.length; i++) {%>
+        <a href="/tags/<%= oneTag[i] %>"><%= oneTag[i] %></a>
         <% } %>
       </div>
     </div>
@@ -333,6 +339,7 @@
     </button>
   </div>
 </section>
+
 <!-- /Caroussel Recs -->
 <% } %>
 <script>

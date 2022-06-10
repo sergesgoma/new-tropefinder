@@ -41,9 +41,10 @@
         <h2 class="medium-title">Random Tropes</h2>
           <!-- One Trope Block -->
            <% for (const book of books) {%>
-            <% const arrRandom = Math.floor(Math.random() * book.tag.length); %>
+            <% const oneTag = book.tag.filter((item) => filteredTropes.includes(item)); const arrRandom = Math.floor(Math.random() * oneTag.length); { %>
           <p class="trope-description">
-            <span class="trope-name"><a href="/tags/<%=book.tag[arrRandom]%>"><%= book.tag[arrRandom]%>.</a></span></p>
+            <span class="trope-name"><a href="/tags/<%=oneTag%>"><%= oneTag[arrRandom] %>.</a></span></p>
+            <% } %>
           <div class="random-container"> 
             <!-- one book -->
             <div class="random-book" id="book">

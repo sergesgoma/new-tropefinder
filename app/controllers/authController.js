@@ -76,11 +76,11 @@ const authController = {
       req.session.username = username;
       const sessionAuth = req.session.isAuth;
       // redirect the user to the session cookie if it exists
-      var redirectTo = req.session.redirectTo || "/";
+      const redirectTo = req.session.redirectTo || "/";
       // delete the session cookie so it is not present on the next request
       delete req.session.redirectTo;
       // redirecting the user to where they want to go
-      res.redirect(redirectTo || "/");
+      res.redirect(307, redirectTo || "/");
     }
   },
   logOut: async (req, res) => {

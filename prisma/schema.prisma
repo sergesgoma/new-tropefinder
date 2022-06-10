@@ -28,16 +28,18 @@ model Book {
   genres            String[]
   summary           String?
 
-  Reviews Reviews[]
+  Reviews  Reviews[]
+  Wishlist Wishlist[]
 }
 
 model User {
-  user_id  Int       @id @default(autoincrement())
-  username String    @unique
-  email    String    @unique
+  user_id  Int        @id @default(autoincrement())
+  username String     @unique
+  email    String     @unique
   password String?
-  isAdmin  Boolean   @default(false)
+  isAdmin  Boolean    @default(false)
   Reviews  Reviews[]
+  Wishlist Wishlist[]
 }
 
 model Reviews {
@@ -46,8 +48,21 @@ model Reviews {
   username  String?
   user      User    @relation(fields: [user_id], references: [user_id])
   review    String?
-  book_id   Int     
+  book_id   Int
   book      Book    @relation(fields: [book_id], references: [book_id])
   stars     Int?
   updated   Boolean @default(false)
+}
+
+model Wishlist {
+  wishlist_id Int  @id @default(autoincrement())
+  book_id     Int
+  book        Book @relation(fields: [book_id], references: [book_id])
+  user_id     Int
+  user        User @relation(fields: [user_id], references: [user_id])
+}
+
+model Tropes {
+  trope_id Int  @id @default(autoincrement())
+  trope String?
 }

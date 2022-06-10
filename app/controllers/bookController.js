@@ -6,14 +6,21 @@ const bookController = {
     const sessionAuth = req.session.isAuth;
     const booksCount = await prisma.Book.count();
     const skip = Math.floor(Math.random() * booksCount);
+
     const books = await prisma.Book.findMany({
-      take: 4,
       skip: skip,
+      take: 4,
       orderBy: {
         id: "desc",
       },
     });
-    res.render("homepage", { books, sessionAuth });
+
+    // filtered tropes put in a variable
+    const tropes = await prisma.Tropes.findMany({ select: { trope: true } });
+    const filteredTropes = tropes.map(function (trope) {
+      return trope["trope"];
+    });
+    res.render("homepage", { books, sessionAuth, filteredTropes });
   },
   bookPage: async (req, res) => {
     const { title } = req.params;
@@ -21,7 +28,13 @@ const bookController = {
     const { book_id } = req.params;
 
     try {
-      const username = req.session.username;
+      const tropes = await prisma.Tropes.findMany({
+        select: { trope: true },
+      });
+      const filteredTropes = tropes.map(function (trope) {
+        return trope["trope"];
+      });
+      const { username, user_id } = req.session;
       const sessionAuth = req.session.isAuth;
 
       const books = await prisma.Book.findMany({
@@ -36,6 +49,12 @@ const bookController = {
           book_id: book_id,
         },
       });
+      const isWished = await prisma.wishlist.findMany({
+        where: {
+          book_id: book_id,
+          user_id: user_id,
+        },
+      });
       const bookGenre = await prisma.Book.findMany({
         where: { book_id: book_id },
         select: {
@@ -43,9 +62,15 @@ const bookController = {
           tag: true,
         },
       });
-      const genre = bookGenre[0].genres;
+      const oneGenre = bookGenre[0].genres;
       const oneTag = bookGenre[0].tag;
-      const items = genre.splice(1, 3);
+      function removeDuplicates(data) {
+        return data.filter((value, index) => data.indexOf(value) === index);
+      }
+      const tags = removeDuplicates(oneTag);
+      const genre = removeDuplicates(oneGenre);
+      const filteredTag = tags.filter((item) => filteredTropes.includes(item));
+      const items = genre.splice(0, 3);
 
       const recs = await prisma.Book.findMany({
         where: {
@@ -53,7 +78,7 @@ const bookController = {
             hasEvery: items,
           },
           tag: {
-            hasSome: oneTag,
+            hasSome: filteredTag,
           },
         },
         take: 25,
@@ -65,11 +90,16 @@ const bookController = {
         books,
         title,
         reviews,
+        genre,
+        tags,
         recs,
         book_id,
+        user_id,
         username,
         sessionAuth,
         avgStars,
+        isWished,
+        filteredTropes
       });
     } catch (err) {
       console.log(err);
@@ -77,12 +107,61 @@ const bookController = {
   },
   wishlistPage: async (req, res) => {
     const sessionAuth = req.session.isAuth;
-    res.render("wishlistPage", { sessionAuth });
+    try {
+      const { user_id, username } = req.session;
+      const book = await prisma.wishlist.findMany({
+        where: {
+          user_id: user_id,
+        },
+        include: {
+          book: true,
+        },
+      });
+      res.render("wishlistPage", {
+        sessionAuth,
+        user_id,
+        book,
+        username,
+      });
+    } catch (err) {
+      console.log(err);
+      res.render("error");
+    }
   },
-  addWishlist: async (req, res) => {
+  addWishlist: async (req, res, next) => {
+    const { user_id } = req.session;
+    const { book_id } = req.params;
+    try {
+      const wishlist = await prisma.wishlist.create({
+        data: {
+          book_id: parseInt(book_id),
+          user_id: user_id,
+        },
+      });
+
+      res.redirect("/wishlist");
+    } catch (err) {
+      console.log(err);
+      res.render("error");
+    }
+  },
+  addWishlistPage: async (req, res, next) => {
+    next();
     res.redirect("/wishlist");
   },
-  deleteWishlist: async (req, res) => {},
+  deleteWishlist: async (req, res) => {
+    const { book_id } = req.params;
+    const { user_id } = req.session;
+    try {
+      const deleteWishlist = await prisma.wishlist.deleteMany({
+        where: { book_id: parseInt(book_id), user_id: user_id },
+      });
+      res.redirect("/wishlist");
+    } catch (err) {
+      console.log(err);
+      res.render("error");
+    }
+  },
 };
 
 module.exports = bookController;
