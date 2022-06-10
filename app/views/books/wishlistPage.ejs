@@ -2,7 +2,10 @@
 <section class="book-background">
   <div class="book-separator">
     <section class="section-title">
-      <h3 class="search-title center">Wishlist of <div class="wishlist-username"><%= username %></div></h3>
+      <h3 class="search-title center">
+        Wishlist of
+        <div class="wishlist-username"><%= username %></div>
+      </h3>
     </section>
     <section class="wishlist-img"></section>
   </div>
@@ -35,14 +38,15 @@
         >
       </h3>
     </div>
-
     <% } %>
   </div>
-
-  <% } %> <% if (book.length == 0) {%>
-
-  <p class="found-tags">No results for '<%=author%>' :'(</p>
-  <a href="/" class="return up">Return</a>
+  <% } %><% if (book.length == 0) {%>
+  <div class="search-details-book">
+    <div class="search-book">
+      <p class="found-tags">No books in your wishlist :'(</p>
+      <a href="/" class="return up">Return</a>
+    </div>
+  </div>
   <% }%>
 </section>
 <div class="pagination">

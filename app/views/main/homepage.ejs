@@ -43,7 +43,7 @@
            <% for (const book of books) {%>
             <% const oneTag = book.tag.filter((item) => filteredTropes.includes(item)); const arrRandom = Math.floor(Math.random() * oneTag.length); { %>
           <p class="trope-description">
-            <span class="trope-name"><a href="/tags/<%=oneTag%>"><%= oneTag[arrRandom] %>.</a></span></p>
+            <span class="trope-name"><a href="/tags/<%=oneTag[arrRandom]%>"><%= oneTag[arrRandom] %>.</a></span></p>
             <% } %>
           <div class="random-container"> 
             <!-- one book -->

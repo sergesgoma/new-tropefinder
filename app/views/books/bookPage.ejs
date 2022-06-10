@@ -68,7 +68,9 @@
             Wishlist <span class="heart">&hearts;</span>
           </button>
         </form>
-        <% } %> <% if (isWished.length !== 0 && sessionAuth && user_id != undefined) {%>
+        <% } %>
+        
+        <% if (isWished.length !== 0 && sessionAuth && user_id != undefined) {%>
         <div class="wishlist">
           <a href="/wishlist/<%= book_id %>/delete">Wishlist &#128148;</a>
         </div>

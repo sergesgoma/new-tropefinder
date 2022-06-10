@@ -99,7 +99,7 @@ const bookController = {
         sessionAuth,
         avgStars,
         isWished,
-        filteredTropes
+        filteredTropes,
       });
     } catch (err) {
       console.log(err);

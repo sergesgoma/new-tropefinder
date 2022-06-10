@@ -495,4 +495,5 @@ INSERT INTO "Tropes" VALUES
     (489,'co workers'),
     (490,'trans'),
     (491,'bipoc'),
-    (492,'autism');
+    (492,'autism'),
+    (493, 'literary fiction');
