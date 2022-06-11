@@ -16,9 +16,10 @@
   box-sizing: border-box;
 }
 
-body, html {
+body,
+html {
   margin: 0;
-  max-width:400px;
+  max-width: 400px;
 }
 
 .header {
@@ -363,11 +364,13 @@ main {
 
 .book-separator {
   gap: 4rem;
-  width:350px;
+  width: 350px;
 }
 
 .section-title {
   margin: auto 0;
+  text-align: center;
+  gap:2rem;
 }
 
 .search-title {
@@ -377,6 +380,11 @@ main {
 
 .search-img {
   width: 50%;
+  height: 200px;
+}
+
+.search-tag-img {
+  width: 80%;
   height: 200px;
 }
 
@@ -410,7 +418,7 @@ main {
 
 .book-separator-mobile {
   flex-direction: column;
-  gap:8rem;
+  gap: 8rem;
 }
 
 .section-img {
@@ -439,7 +447,7 @@ main {
   min-height: 900px;
   flex-direction: column;
   background-color: white;
-  gap:15rem;
+  gap: 5rem;
 }
 
 .tabs {
@@ -449,23 +457,23 @@ main {
 
 .tab__summary {
   font-size: 15px;
-  margin-top:3rem;
-  height: 550px;
+  margin-top: 3rem;
+  height: 450px;
 }
 
 .tab___content div {
-  font-size:15px;
+  font-size: 15px;
 }
 
 .tab table {
   padding-bottom: 5rem;
 }
 .book-details-section td {
-  width:130px;
-  font-size:14px;
+  width: 130px;
+  font-size: 14px;
 }
 
-.book-genre{
+.book-genre {
   overflow: auto;
 }
 
@@ -474,58 +482,74 @@ main {
 }
 
 .review-wrapper {
-  height:550px;
-  width:290px;
+  height: 550px;
+  width: 290px;
 }
 
 .p-review {
-  width:240px;
+  width: 240px;
 }
 
 .review-list {
-  width:240px;
+  width: 240px;
 }
 
 .one-review {
-  width:100%;
+  width: 100%;
 }
 
 .review-text {
-  width:230px;
+  width: 230px;
 }
 
 .block-username-rating {
-  width:230px;
+  width: 230px;
   align-items: center;
 }
 
 .corner {
-  width:80%;
-  margin:3rem auto 0 auto;
+  width: 80%;
+  margin: 3rem auto 0 auto;
 }
 
 .corner h4 {
   margin-bottom: 2rem;
 }
 
+.corner-tag {
+  height: 150px;
+}
+
 #recs {
-  width:max-content;
+  width: max-content;
   margin: auto;
 }
 
 #wrapper {
-  margin:6rem auto 10rem auto;
-  width:330px;
+  margin: 4rem auto 12rem auto;
+  width: 330px;
 }
 
 #prev {
-  margin-left:-5.5rem;
+  margin-left: -5.5rem;
 }
 
 #next {
-  margin-right:-5.5rem;
+  margin-right: -5.5rem;
 }
 
 .item {
-  max-height:220px;
+  max-height: 220px;
+}
+
+ul.ui-autocomplete {
+  width: 260px;
+}
+
+.up {
+  margin-bottom: 5rem;
+}
+
+.previous-page, .next-page {
+  width:60px;
 }
