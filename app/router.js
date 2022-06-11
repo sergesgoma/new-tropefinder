@@ -15,6 +15,7 @@ router.get("/", bookController.homePage);
 
 // SEARCH ENGINE
 router.get("/tag", tagController.tagPage);
+router.get('/search',tagController.searchEngine);
 
 // TAG, AUTHOR, GENRE, SERIES PAGES
 router.get("/tags/:tag", tagController.tagsPage);

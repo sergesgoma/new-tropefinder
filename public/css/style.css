@@ -1576,6 +1576,7 @@ footer p {
   padding-bottom: 0.5rem;
   overflow: auto;
   height: 350px;
+  padding-right: 1rem;
 }
 
 /* Caroussel */
@@ -1930,3 +1931,44 @@ footer p {
 .disable {
   background-color: #ccc;
 }
+
+ul.ui-autocomplete {
+  list-style-type: none;
+  padding: 1rem 2rem;
+  margin-right:-5px;
+  -moz-border-radius: 15px;
+  border-radius:20px;
+  overflow: auto;
+  height: 50px;
+  width: 300px;
+  background-color: white;
+}
+
+ul.ui-autocomplete li {
+  border: none;
+  background-color: white;
+  padding: 1rem;
+  font-size: 15px;
+  font-family: "Rubik", sans-serif;
+  font-weight: 500;
+  outline: 0;
+  border-radius: 6px;
+  transition: 600ms ease-in-out all;
+}
+
+ul.ui-autocomplete li:hover {
+  background-color: #fafafa;
+  cursor: pointer;
+  font-weight: 700;
+}
+
+/* ul.ui-autocomplete li a {
+  border: none;
+  background-color: white;
+  
+}
+
+ul.ui-autocomplete li:hover a {
+  border: none;
+  background-color: #fafafa;
+} */

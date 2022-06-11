@@ -49,8 +49,15 @@ const tagController = {
         },
       ],
     });
-    console.log(results);
     res.render("searchPage", { search, books, sessionAuth });
+  },
+  searchEngine: async (req, res) => {
+    // filtered tropes put in a variable
+    const tropes = await prisma.Tropes.findMany({ select: { trope: true } });
+    const data = tropes.map(function (trope) {
+      return trope["trope"];
+    });
+    res.json(data);
   },
   tagsPage: async (req, res) => {
     const { tag } = req.params;

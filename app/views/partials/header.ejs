@@ -31,10 +31,12 @@
       src="https://kit.fontawesome.com/c6f4b89e6b.js"
       crossorigin="anonymous"
     ></script>
-      <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
-  <script src="https://code.jquery.com/ui/1.13.1/jquery-ui.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+    <script src="https://code.jquery.com/ui/1.13.1/jquery-ui.js"></script>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
   </head>
-  
+
   <body>
     <header class="header">
       <div class="wrapper wrapper-header">
@@ -52,7 +54,7 @@
           <a href="/signup" class="btn-signup nav-elem">Sign Up</a>
           <a href="/login" class="btn-signup btn-login">Log in</a>
           <% } %> <% if (sessionAuth) { %>
-            <a href="/wishlist" class="nav-elem">Wishlist</a>
+          <a href="/wishlist" class="nav-elem">Wishlist</a>
           <form action="/logout" method="post">
             <button class="btn-signup btn-logout">Log out</button>
             <% } %>

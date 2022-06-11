@@ -12,7 +12,7 @@
           </div>
           
           <div class="search-bar">
-            <input type="search" class="search" name="search" id="search" placeholder="historical, plain jane, romance" />
+            <input type="search" class="search" name="search" id="search" placeholder="historical, plain jane, enemies to lovers" />
             <button type="submit" class="button-search">
               <i class="fa-solid fa-magnifying-glass"></i>
             </button>
@@ -102,14 +102,11 @@ $(document).ready(function () {
 });
 
 // autocomplete form
+
+
   $( function() {
-    var availableTags = [
-"historical",
-"plain jane",
-"aliens",
-"secret baby",
-"lisa kleypas"
-    ];
+    const availableTags =["angsty","angst","mob","gritty","human trafficking","mafia","secrets","captivity","kidnapping","childhood friends","revenge","second chance","virgin","guilty pleasure","tortured hero","marriage of convenience","friends to lovers","steamy","enemies to lovers","fluff","funny","gambling","ghosts","small town","drama","england","mental health","brothers best friend","book boyfriend","hea","abuse","cute","single mom","single dad","single parent","prenant","biker","veterans","bad boy","baseball","sports","detective","law enforcement","high school","family","marriage in trouble","made me cry","tear jerker","inheritance","religion","disability","queer","actor","actress","famous","celebrity","mental illness","slow burn","boss employee","age gap","broken hero","tiktok","all the feels","insta love","death","rivals to lovers","heart wrenching","adventure","action adventure","spicy","no hea","married","shapeshifters","shifters","vampires","smut","demons","urban","gods","hidden identity","geek","holidays","scarred","christmas","forced marriage","arranged marriage","shotgun marriage","clean read","clean romance","strong heroine","alpha male","military","forbidden","forbidden romance","taboo","aliens","monsters","sweet hero","sweet heroine","scarred hero","scarred heroine","political intrigue","classics","magic","dragons","witches","british","teacher student","student teacher","musicians","musician","dual pov","older man younger woman","dark romance","emotional","billionaire","anti hero","crime","male pov","rom com","beach","realistic fiction","humor","nerd","dom sub","bdsm","clean regency","realistic","second chances","cruel hero","opposites attract","ireland","humorous","love triangle","fluffy","insta lust","abused heroine","hate to love","love hate","chick lit","books to movies","movies","thriller","murder","man whore","fake relationship","fake marriage","myth","erotica","erotic","book club","teen","coming of age","fated mates","journalist","librarian","cover love","police","chef","cooking","horror","badass heroine","kickass heroine","paranormal","office romance","workplace romance","older heroine younger hero","older woman younger man","older hero younger heroine","family drama","social issues","older heroine","rock star","hot","cliffhanger","laugh out loud","lol","grumpy hero","widow","widower","gay","small town romance","instalove","possessive hero","neighbors","roommates","stalker","animals","sexy","age difference","forced proximity","lawyer","firefighter","baby","kids","abandonment","found family","cheating","cheater","celibate hero","sassy heroine","sexual tension","duke","asian","asian literature","cheesy","multiple pov","swoon","unrequited love","athletes","space","dirty talk","sapphic","gothic","dark academia","ménage","assassin","rakes","hilarious","brain candy","pets","dogs","futuristic","dystopia","holiday","artists","apocalyptic","magical realism","sports romance","made me laugh","virgin heroine","virgin hero","school","mystery","speculative fiction","fairy tale","retelling","fairytale retelling","unreliable narrator","may december","kidnapped","comedy","hawaii","fantasy","romance","contemporary romance","regency romance","hero in pursuit","motorcycle club","suspense","action","fbi","serial killers","hopeless romantic","bully","bully romance","cowboys","diversity","diverse read","misunderstanding","infidelity","jerk hero","plain jane","medieval","betrayal","adultery","hero grovels","groveling hero","bodice ripper","espionage","historical","fae","fairies","faerie","swordsman","knight","artist","debut","standalone","series","college","hockey","scotland","food","sweet","chefs","angels","highlanders","porn star","time travel","valkyrie","foodie","latinx","authors of color","lgbt","grimdark","grumpy sunshine","travel","bluestocking heroine","noble","road trip","historians","forbidden love","male protagonist","pregnancy","science fiction","secret","apocalypse","black authors","heartwarming","mystery suspense","modern fiction","after the wedding","interracial","elves","indie","bodice rippers","children","mc on the run","office","mail order bride","ex con","amnesia","mistaken identity","epic","sword and sorcery","thieves","spy","pirates","bondage","reverse harem","asexual","royals","football","high fantasy","epic fantasy","heroine in pursuit","modern romance","captive","arthurian","werewolves","werewolf","summer","winter","closet case","beta hero","organized crime","hitman","abduction","regency","tattoos","bodyguard","romantic","western","war","safe","secret identity","sword and laser","comics","urban fantasy","sad","marriage","lesbian","doctor","doctors","victorian","movie star","general fiction","contemporary fiction","young adult","class differences","vacation","royalty","bisexual","cowboy","shy heroine","shy hero","disabled","hot hot hot","booktok","France","paris","cute romance","juvenile","groveling","false identity","gender bender","cross dressing","crossdressing","tomboy","adult","comfort","london","grumpy and sunshine","rich","new adult","spinster","fake dating","grief","trauma","one night stand","frontier","space opera","amputee hero","photographer","jewish","romantic comedy","politician","california","ice skating","wallflower","in the closet","boarding school","succubus","low fantasy","survival","strong female lead","gangs","heiress","compromised","bastard","literature","family saga","feminist","feminism","outcast","ptsd","dark and twisted","trigger warning","highland","wild west","memoir","heist","action packed","satire","slife of life","pulp","supernatural","courtesan","alternate history","japan","djinn","psychics","georgian","civil war","epistolary","egypt","secret baby","beach read","trashy romance","teen fiction","nobel","spies","thief","class difference","kinky","ya fiction","ya contemporary","ya romance","shipwreck","music","clean","friends with benefits","fantasy romance","kink","hurt comfort","hollywood","graphic novels","manga","ice queen","shoujo","pregnant heroine","coming out","athlete","slavery","christian","fat","body positivity","body positive","body swap","wales","australia","new york","polyamory","fat rep","politics","manwhore","post apocalyptic","co workers","trans","bipoc","autism","literary fiction"];
+    availableTags.sort();
     function split( val ) {
       return val.split( /,\s*/ );
     }
@@ -126,7 +123,7 @@ $(document).ready(function () {
         }
       })
       .autocomplete({
-        minLength: 0,
+        minLength: 1,
         source: function( request, response ) {
           // delegate back to autocomplete, but extract the last term
           response( $.ui.autocomplete.filter(
