@@ -31,6 +31,8 @@
       src="https://kit.fontawesome.com/c6f4b89e6b.js"
       crossorigin="anonymous"
     ></script>
+      <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+  <script src="https://code.jquery.com/ui/1.13.1/jquery-ui.js"></script>
   </head>
   
   <body>
@@ -45,25 +47,7 @@
         <nav>
           <a href="/" class="nav-elem">Home</a>
           <a href="/#how" class="nav-elem">How it works</a>
-          <!-- <a href="/#random" class="nav-elem">Random Tropes</a> -->
           <a href="/all-tropes" class="nav-elem">All Tropes</a>
-          <!-- <div class="dropdown">
-            <button
-              onclick="dropdown()"
-              class="dropdown-button"
-              id="dropdown-button"
-            >
-              Change universe <i class="fa-solid fa-angle-down"></i>
-            </button>
-            <div class="dropdown-child" id="dropdown-child">
-              <a href="/all" class="light-blue-bg br-30">All</a>
-              <a href="/fantasy">Fantasy</a>
-              <a href="/mystery">Mystery</a>
-              <a href="/romance">Romance</a>
-              <a href="/sf">Science Fiction</a>
-                <a href="/thriller">Thriller</a>
-            </div>
-          </div> -->
           <% if (!sessionAuth) { %>
           <a href="/signup" class="btn-signup nav-elem">Sign Up</a>
           <a href="/login" class="btn-signup btn-login">Log in</a>

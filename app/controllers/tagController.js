@@ -1,9 +1,16 @@
 const { PrismaClient } = require("@prisma/client");
+const { json } = require("express");
 const prisma = new PrismaClient();
 
 const tagController = {
   tagPage: async (req, res) => {
     const { search } = req.query;
+    let usingSplit = search.split(",");
+
+    usingSplit.pop();
+    const results = usingSplit.map((element) => {
+      return element.trim();
+    });
     const sessionAuth = req.session.isAuth;
 
     const books = await prisma.Book.findMany({
@@ -11,23 +18,23 @@ const tagController = {
         OR: [
           {
             tag: {
-              has: search.toLowerCase(),
+              hasEvery: results,
             },
           },
           {
             genres: {
-              has: search,
+              hasEvery: results,
             },
           },
           {
             author: {
-              contains: search,
+              in: results,
               mode: "insensitive",
             },
           },
           {
             title: {
-              contains: search,
+              in: results,
               mode: "insensitive",
             },
           },
@@ -42,7 +49,7 @@ const tagController = {
         },
       ],
     });
-
+    console.log(results);
     res.render("searchPage", { search, books, sessionAuth });
   },
   tagsPage: async (req, res) => {
