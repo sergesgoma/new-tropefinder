@@ -1,6 +1,6 @@
 const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
-const bcrypt = require("bcrypt");
+const bcrypt = require("bcryptjs");
 
 const authController = {
   signupPage: async (req, res) => {
@@ -18,31 +18,33 @@ const authController = {
         message: "Mail already exists",
       });
     } else {
-      // if the mail doesn't exist in the DB, hash and salt the password
-      bcrypt.hash(password, 10, (err, hash) => {
-        if (err) {
-          return res.status(500).json({
-            error: err,
-          });
-        } else {
-          // then add the new user to the DB with the hashed and salted pawword
-          const createUser = prisma.User.create({
-            data: {
-              username,
-              email,
-              password: hash,
-            },
-          })
-            .then((result) => {
-              res.redirect("/login");
-            })
-            .catch((err) => {
-              console.log(err);
-              res.status(500).json({
-                error: err,
-              });
+      bcrypt.genSalt(10, function (err, Salt) {
+        // if the mail doesn't exist in the DB, hash and salt the password
+        bcrypt.hash(password, 10, (err, hash) => {
+          if (err) {
+            return res.status(500).json({
+              error: err,
             });
-        }
+          } else {
+            // then add the new user to the DB with the hashed and salted pawword
+            const createUser = prisma.User.create({
+              data: {
+                username,
+                email,
+                password: hash,
+              },
+            })
+              .then((result) => {
+                res.redirect("/login");
+              })
+              .catch((err) => {
+                console.log(err);
+                res.status(500).json({
+                  error: err,
+                });
+              });
+          }
+        });
       });
     }
   },
@@ -80,7 +82,7 @@ const authController = {
       // delete the session cookie so it is not present on the next request
       delete req.session.redirectTo;
       // redirecting the user to where they want to go
-      res.redirect(307, redirectTo || "/");
+      res.redirect(redirectTo || "/");
     }
   },
   logOut: async (req, res) => {

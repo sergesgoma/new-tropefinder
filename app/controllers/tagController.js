@@ -15,30 +15,9 @@ const tagController = {
 
     const books = await prisma.Book.findMany({
       where: {
-        OR: [
-          {
-            tag: {
-              hasEvery: results,
-            },
-          },
-          {
-            genres: {
-              hasEvery: results,
-            },
-          },
-          {
-            author: {
-              in: results,
-              mode: "insensitive",
-            },
-          },
-          {
-            title: {
-              in: results,
-              mode: "insensitive",
-            },
-          },
-        ],
+        tag: {
+          hasEvery: results,
+        },
       },
       orderBy: [
         {

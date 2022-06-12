@@ -86,6 +86,7 @@ const bookController = {
       recs.sort(function (a, b) {
         return 0.5 - Math.random();
       });
+
       res.render("bookPage", {
         books,
         title,
