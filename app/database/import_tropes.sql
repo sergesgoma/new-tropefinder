@@ -367,7 +367,7 @@ INSERT INTO "Tropes" VALUES
     (361,'sad'),
     (362,'marriage'),
     (363,'lesbian'),
-    (364,'docotr'),
+    (364,'doctor'),
     (365,'doctors'),
     (366,'victorian'),
     (367,'movie star'),
