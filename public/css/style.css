@@ -1962,4 +1962,11 @@ ul.ui-autocomplete li:hover {
   font-weight: 700;
 }
 
+.search-details-error {
+  width:100%;
+}
 
+.search-book-error {
+  width: 100%;
+  text-align: center;
+}
